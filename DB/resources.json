@@ -1,0 +1,72 @@
+{
+    "resources": [
+        { 
+            "id": "wood1",
+            "name": "Wood",
+            "available": 100,
+            "capacity": 200,
+            "resourceCategory": "construction",
+            "requirements": "none"
+        },
+        { 
+            "id": "fruit1",
+            "name": "Fruit",
+            "available": 100,
+            "capacity": 200,
+            "resourceCategory": "Consumable",
+            "requirements": "none"
+        },
+        { 
+            "id": "vegetables1",
+            "name": "Vegetables",
+            "available": 100,
+            "capacity": 200,
+            "resourceCategory": "Consumable",
+            "requirements": "none"
+        },
+        { 
+            "id": "seeds1",
+            "name": "Seeds",
+            "available": 100,
+            "capacity": 200,
+            "resourceCategory": "Consumable",
+            "requirements": "none"
+        },
+        { 
+            "id": "meat1",
+            "name": "Meat",
+            "available": 100,
+            "capacity": 200,
+            "resourceCategory": "Consumable",
+            "requirements": "none"
+        },
+        { 
+            "id": "cereal1",
+            "name": "Cereal",
+            "available": 100,
+            "capacity": 200,
+            "resourceCategory": "Consumable",
+            "requirements": "none"
+        },
+        { 
+            "id": "root1",
+            "name": "Root",
+            "available": 100,
+            "capacity": 200,
+            "resourceCategory": "Consumable",
+            "requirements": "none"
+        },
+        { 
+            "id": "bone1",
+            "name": "Bone",
+            "available": 100,
+            "capacity": 200,
+            "resourceCategory": "Construction",
+            "requirements": "none"
+        }
+
+
+
+    ]
+}
+

@@ -1,0 +1,47 @@
+{
+    "labors": [
+        {
+            "id": "hunt1",
+            "name": "Hunt",
+            "resource input": {
+                "Meat": 1.9,
+                "Wood": 0.7
+            },
+            "resource output": {
+                "Meat": 2.4,
+                "Bone": 0.9
+            },
+            "tools": [
+                "spear"
+            ]
+        }, 
+        {
+            "id": "gatherfruit1",
+            "name": "Gather Fruit",
+            "resource input": {
+                "Meat": 1.9,
+                "Wood": 0.7
+            },
+            "resource output": {
+                "Meat": 2.4,
+                "Bone": 0.9
+            },
+            "tools": [
+                "spear"
+            ]
+
+        }
+    ]
+}
+
+
+
+
+
+
+
+
+
+
+
+

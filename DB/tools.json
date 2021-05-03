@@ -1,0 +1,74 @@
+{
+    "tools": [
+        {
+            "name": "Spear",
+            "model": {
+                "Bone": {
+                    "extra cost": {
+                        "resources": {
+                            "Bone": 3.1
+                        }
+                    },
+                    "quantity": 0,
+                    "durability": 10,
+                    "extra effect": 0.02
+                },
+                "Wood": {
+                    "extra cost": {
+                        "Wood": 3.1
+                    },
+                    "quantity": 0,
+                    "durability": 10,
+                    "extra effect": 0.02
+                },
+                "Stone": {
+                    "extra cost": {
+                        "Stone": 3.1
+                    },
+                    "quantity": 0,
+                    "durability": 10,
+                    "extra effect": 0.02
+                },
+                "Bronze": {
+                    "extra cost": {
+                        "Bronze": 3.1
+                    },
+                    "quantity": 0,
+                    "durability": 10,
+                    "extra effect": 0.02
+                },
+                "Iron": {
+                    "extra cost": {
+                        "Iron": 3.1
+                    },
+                    "quantity": 0,
+                    "durability": 10,
+                    "extra effect": 0.02
+                },
+                "Steel": {
+                    "extra cost": {
+                        "Steel": 3.1
+                    },
+                    "quantity": 0,
+                    "durability": 10,
+                    "extra effect": 0.02
+                }
+            },
+            "base upgrade": {
+                "input": 0,
+                "output": 0,
+                "cost": 0,
+                "durability": 0
+            },
+            "base cost": {
+                "Wood": 2.4,
+                "material": 3.1
+            },
+            "base effect": {
+                "input": 0.95,
+                "output": 1.05
+            },
+            "tool points": 0
+        }
+    ]
+}
