@@ -1,12 +1,4 @@
 export default function Tool ( info ) {
-// export default function Tool ( toolName, cost, upgrade, effect ) {
-    // this.toolName = toolName;
-    // this.cost = cost;
-    // this.upgrade = upgrade;
-    // this.effect = effect;
-    // toolCategory
-    //
-
     this.info = info;
     this.addPlayer = ( player ) => this.player = player;
 
@@ -30,7 +22,5 @@ export default function Tool ( info ) {
         this.getModel(model)['extra cost'] = newCostObject['extra']
         this.info['cost'] = newCostObject['base']
     };
-
-    
 
 };

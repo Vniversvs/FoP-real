@@ -1,0 +1,17 @@
+{
+    "components": [
+        {
+            "name": "Wooden Rod",
+            "input": [
+                {
+                    "Wood": 1.1 
+                },
+                {
+                    "Bamboo": 1.4
+                }
+            ], 
+            "category": "construction",
+            "available": 0               
+        }
+    ]
+}

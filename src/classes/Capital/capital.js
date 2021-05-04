@@ -6,8 +6,8 @@ const resourcesJson = JSON.parse(
     fs.readFileSync( './DB/resources.json' 
     ));
 
-export default function Capital ( stuff, tools ) {
-    this.stuff = stuff;
+export default function Capital ( production, tools ) {
+    this.production = production;
     this.tools = tools;
 
     this.addPlayer = ( player ) => { this.player = player };
@@ -22,14 +22,4 @@ export default function Capital ( stuff, tools ) {
 };
 
 const capital = new Capital ( [], [] );
-
-// console.log(capital.resources);
-// capital.initiateResource( resourcesJson['resources'][0] );
-// console.log(capital.resources);
-// console.log(capital);
-// console.log(capital.resources
-//     .find( ( resource ) => resource.getInfo( "name" ) === "Wood"));
-
-// console.log(resourcesJson);
-
 

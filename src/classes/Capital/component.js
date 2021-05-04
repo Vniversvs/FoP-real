@@ -1,6 +1,5 @@
 export default function Component ( info ) {
     //   var info = [
-    //     id,
     //     name,
     //     model,
     //     availability, 

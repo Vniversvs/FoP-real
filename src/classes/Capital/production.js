@@ -1,5 +1,7 @@
 import Resource from './resource.js';
 import Tool from './tool.js'
+import Supply from './supply.js'
+import Component from './component.js'
 import fs from 'fs';
 const resourcesJson = JSON.parse( 
     fs.readFileSync( './DB/resources.json' 
@@ -7,12 +9,15 @@ const resourcesJson = JSON.parse(
 const toolsJson = JSON.parse( 
     fs.readFileSync( './DB/tools.json' 
     ));
+const componentJson = JSON.parse( 
+    fs.readFileSync( './DB/components.json' 
+    ));
+const supplyJson = JSON.parse( 
+    fs.readFileSync( './DB/supplies.json' 
+    ));
 
 // export default function Stuff ( resourceList, toolList ) {
 export default function Stuff ( info ) {    
-    // this.resourceList = resourceList;
-    // this.toolList = toolList;
-
     this.info = info;
 
     // STUFF CATEGORIES: 
@@ -22,53 +27,100 @@ export default function Stuff ( info ) {
         // Tools
         // Machines (?)
         // Buildings
-
-    this.findProductinCategory = function ( productName, categoryName  ) {
+// GENERAL STUFF
+    this.findProductInCategory = function ( productName, categoryName  ) {
         return this.info[ categoryName ]
             .find( product => product.info['name'] === productName
-        )};
+    )};
 
     this.findProduct = function ( productName ) {
         for ( let categoryName of Object.keys( this.info ) ) {
-            if () {
-
-            }
+            var product = this.findProductInCategory( productName, categoryName ) 
+            if ( product !== undefined ) {
+                return { 
+                    'result': product,
+                    'category': categoryName
+                };
+            };
         };
-        
-        return this.info[ categoryName ]
-        .find( product => product.info['name'] === productName
-        )};
     };
 
+    // this.initializeProductInCategory = function ( productInfo, categoryName ) {
+    //     this.info[categoryName].push( new Resource ( productInfo ) );
+    // };
 
+    // this.initializeProductJson = function ( productJson ) {
+    //     for ( let categoryName of productJson ) {
+
+    //     };
+
+    //     for ( let resourceInfo of resourcesJson['resources'] ) {
+    //         this.initializeResource( resourceInfo )
+    //     };
+    // };
+
+    // NATURAL RESOURCES
     this.findResource = function( resourceName ) { 
         return this.resourceList
             .find( resource => resource.info['name'] === resourceName
     )};
 
+    this.initializeResource = function ( resourceInfo ) {
+        this.info['Natural Resources'].push( new Resource ( resourceInfo ) );
+    };
+
+    this.initializeResourceJson = function ( resourceJson ) {
+        for ( let resourceInfo of resourceJson['resources'] ) {
+            this.initializeResource( resourceInfo )
+        };
+    };
+
+
+    // SUPPLIES
+    this.initializeSupply = function ( supplyInfo ) {
+        this.info['Supplies'].push( new Supply ( supplyInfo ))
+    };
+
+    this.initializeSupplyJson = function ( supplyJson ) {
+        for ( let supplyInfo of supplyJson['supplies'] ) {
+            this.initializeSupply( supplyInfo )
+        };
+    };
+
+
+    //TOOLS
     this.findTool = function( toolName ) { 
         return this.toolList
             .find( tool => tool.info['name'] === toolName
     )};
 
     this.initializeTool = function ( toolInfo ) {
-        this.toolList.push( new Tool ( toolInfo ))
+        this.info['Tools'].push( new Tool ( toolInfo ))
     };
 
-    this.initializeToolJson = function (  ) {
+    this.initializeToolJson = function ( toolsJson ) {
         for ( let toolInfo of toolsJson['tools'] ) {
             this.initializeTool( toolInfo )
         };
     };
 
-    this.initializeResource = function ( resourceInfo ) {
-        this.resourceList.push( new Resource ( resourceInfo ) );
+
+    //COMPONENTS
+    this.initializeComponent = function ( componentInfo ) {
+        this.info['Components'].push( new Component ( componentInfo ))
     };
 
-    this.initializeResourceJson = function ( resourceJson ) {
-        for ( let resourceInfo of resourcesJson['resources'] ) {
-            this.initializeResource( resourceInfo )
+    this.initializeComponentJson = function ( componentJson ) {
+        for ( let componentInfo of componentJson['components'] ) {
+            this.initializeTool( componentInfo )
         };
+    };
+
+
+    // Checks
+    this.checkProductAvailability = function ( productName, amount ) {
+        var checkingProduct = this.findProduct( productName );
+        return checkingProduct.info['available'] >= amount ;
     };
 
     this.checkResourceAvailability = function ( resourceName, amount ) {
@@ -88,25 +140,64 @@ export default function Stuff ( info ) {
     };
 
 
-
+    // CHECK PRODUCTS
     this.checkManyAvailability = function ( resourceInputObject ) {
         for ( let resourceName of Object.keys( resourceInputObject ) ) {
             if ( !this.checkResourceAvailability
-                ( resourceName, resourceCostObject[resourceName] ) ) {
+                ( resourceName, resourceInputObject[resourceName] ) ) {
                     return false;
             };
         };
         return true;
     };
 
-    this.consumeInputResources = function ( resourceInputJson ) {
-        // resourceInputJson = {
-        //     "resource1": float1,
-        //     "resource2": float2
-        //     etc
+    this.checkManyProductsAvailability = function ( productInputObject ) {
+        // productInputJson = {
+        //     'Product Category1':
+        //     {
+        //         'product': amount (float)
+        //     },
+        //     'Product Category2':
+        //     {
+        //         'product': amount (float)
+        //     }
         // };
 
+        for ( let productName of Object.keys( productInputObject ) ) {
+            if ( !this.checkProductAvailability
+                ( productName, productInputObject[ productName ] ) ) {
+                    return false;
+            };
+        };
+        return true;
+    };
 
+
+    // CONSUME AND PRODUCE PRODUCTS
+    this.consumeInputProducts = function ( productInputJson ) {
+        for ( let productCategoryName of Object.keys( productInputJson ) ) {
+            for ( let productName of Object.keys( productInputJson[ productCategoryName ])) {
+                console.log( productName );
+                let product = this.findProduct( productName );
+                product.subtract( productInputJson[ productCategoryName ][ productName ]);
+            };
+        };
+        // OR CONSUME CATEGORY ONE BY ONE (ALLOWS FOR DIFFERENTIATED EFFECTS ON DIFFERENT CATEGORIES)
+    };
+
+    this.produceOutputProducts = function ( productOutputObject ) {
+        for ( let productCategoryName of Object.keys( productInputJson ) ) {
+            for ( let productName of Object.keys( productInputJson[ productCategoryName ])) {
+                console.log( productName );
+                let product = this.findProduct( productName );
+                product.add( productInputJson[ productCategoryName ][ productName ]);
+            };
+        };
+    };
+
+
+
+    this.consumeInputResources = function ( resourceInputJson ) {
         for ( let resourceName of Object.keys( resourceInputJson ) ) {
             console.log(resourceName);
             let resource = this.findResource( resourceName );
@@ -166,7 +257,8 @@ export default function Stuff ( info ) {
 
     this.initializeResourceJson( resourcesJson );
     this.initializeToolJson( toolsJson );
-
+    this.initializeComponentJson( componentJson );
+    this.initializeSupplyJson( supplyJson );
 };
 
 

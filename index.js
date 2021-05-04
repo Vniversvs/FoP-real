@@ -1,7 +1,24 @@
 // TODO:
-//// 1) Tool
-//// 2) LaborOrder
-//// 3) Turn
+
+//// 0) ( ) population.js 
+////// a) ( ) Organize the Json
+////// b) ( ) Base consumption 
+//// 1) ( ) production.js 
+////// a) (X) checks
+////// b) ( ) consume and produce
+//// 2) (X) Natural Resource, Tool, component, supply 
+////// a) (X) template
+////// b) (X) jsons
+//// 3) ( ) LaborOrder
+////// a) ( ) Calculate productInputJson and productOutputJson
+////// b) ( ) Add LaborOrder 
+////// c) ( ) Perform Labor (destroy LaborOrder)
+//// 4) ( ) Pass Turn
+////// a) ( ) ?
+//// 5) ( ) Polish MVP
+////// a) ( ) figure out initial things
+////// b) ( ) balance for fun 
+////// c) ( ) Finalize
 
 
 import fs from 'fs';
@@ -14,14 +31,21 @@ const population = new Population( 100 );
 const work = new Work ( [] );
 
 import Capital from './src/classes/Capital/capital.js';
-import Stuff from './src/classes/Capital/stuff.js';
+import Production from './src/classes/Capital/production.js';
 
-const stuff = new Stuff ( [], [] );
+const production = new Production ( { 
+    'Natural Resources': [],
+    'Supplies': [],
+    'Components': [],
+    'Tools': [],
+    'Machines': [],
+    'Buildings': [],
+});
 
 import Player from "./src/classes/player.js";
 
 const society = new Society( population, work )
-const capital = new Capital( stuff, [] )  
+const capital = new Capital( production, [] )  
 
 const PLAYER = new Player( society, capital, 0, 0);
 
@@ -33,7 +57,7 @@ const resourcesJson = JSON.parse(
     ));
 
 
-PLAYER.capital.stuff.initializeResource(resourcesJson['resources'][0]);
+// PLAYER.capital.production.initializeResource(resourcesJson['resources'][0]);
 
 // work.initializeLabor(laborsJson['labors'][0]);
 
@@ -48,10 +72,9 @@ PLAYER.capital.stuff.initializeResource(resourcesJson['resources'][0]);
 // console.log( PLAYER.capital.stuff.resourceList.map( resource => resource.info['available'] ) );
 // console.log( PLAYER.capital.stuff.checkManyAvailability( info ) );
 
-console.log( PLAYER.capital.stuff.resourceList );
-console.log( PLAYER.capital.stuff.toolList );
-
-
+// console.log( PLAYER.capital.production.info['Natural Resources'] );
+// console.log( PLAYER.capital.production.findProductInCategory( 'Wood', 'Tools' ) );
+console.log( PLAYER.capital.production.findProduct( 'Wood' ) );
 
 
 
