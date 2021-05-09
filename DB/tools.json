@@ -37,7 +37,7 @@
                     },
                     "quantity": 0,
                     "durability": 10,
-                    "extra effect": 0.02
+                    "extra effect": 0.03
                 },
                 "Stone": {
                     "extra cost": {
@@ -45,7 +45,7 @@
                     },
                     "quantity": 0,
                     "durability": 10,
-                    "extra effect": 0.02
+                    "extra effect": 0.04
                 },
                 "Bronze": {
                     "extra cost": {
@@ -57,25 +57,26 @@
                 },
                 "Iron": {
                     "extra cost": {
-                        "Iron": 3.1
+                        "Iron": 95
                     },
-                    "quantity": 0,
+                    "quantity": 20,
                     "durability": 10,
-                    "extra effect": 0.02
+                    "extra effect": 0.11
                 },
                 "Steel": {
                     "extra cost": {
-                        "Steel": 3.1
+                        "Steel": 130
                     },
                     "quantity": 0,
-                    "durability": 10,
-                    "extra effect": 0.02
+                    "durability": 12,
+                    "extra effect": 0.10
                 }
             },
             "Base Upgrade": {
                 "Input": 0,
                 "Output": 0,
                 "Cost": 0,
+                "Repair Cost": 0,
                 "Durability": 0
             },
             "Base Cost": {
@@ -86,7 +87,8 @@
                 "Input": 0.95,
                 "Output": 1.05
             },
-            "Tool Points": 0
+            "Tool Production Points": 0,
+            "Requirements": "none"
         }
     ]
 }

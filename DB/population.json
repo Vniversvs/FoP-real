@@ -1,19 +1,20 @@
 {
-    "population":{
-        "labor":{
-            
+    "Population":{
+        "Labor":{
+            "Labor Use": 12,
+            "Happiness": 10,
+            "Performing Labors": {
+                "Hunt": 10
+            }
         },
-        "social division":{
+        "Social Division":{
 
         },
         "Consumption": {
             "Base": {
-
             },
             "Class1":{
-
             }
-        },
-        
+        }
     }
 }

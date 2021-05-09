@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom'
 import Auxiliary from './src/classes/auxiliary.js'
 import fs from 'fs';
 import Society from './src/classes/Society/society.js';
@@ -50,7 +52,7 @@ PLAYER.society.work.performLaborOrder( laborOrderTest )
 
 console.log( PLAYER.capital.production.info['Natural Resources'] );
 
-
+ReactDOM.render(<h1> Hello World </h1>, document.getElementById("root"))
 
 
 
