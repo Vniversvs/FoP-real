@@ -17,29 +17,35 @@ const supplyJson = JSON.parse(
     ));
 
 // export default function Stuff ( resourceList, toolList ) {
-export default function Stuff ( info ) {    
+export default function Production ( info ) {    
     this.info = info;
 
-    // STUFF CATEGORIES: 
-        // Natural resources
-        // Supplies
-        // Components
-        // Tools
-        // Machines (?)
-        // Buildings
 // GENERAL STUFF
+    this.productCategories = function () {
+        return {
+        'Natural Resources': {},
+        'Supplies': {},
+        'Components': {},
+        'Tools': {},
+        'Buildings': {}
+    }};
+
     this.findProductInCategory = function ( productName, categoryName  ) {
         return this.info[ categoryName ]
-            .find( product => product.info['name'] === productName
-    )};
+            .find( product => product.info['Name'] === productName)
+    };
 
     this.findProduct = function ( productName ) {
         for ( let categoryName of Object.keys( this.info ) ) {
+            // console.log(categoryName);
+            // console.log( productName );
+            // console.log( this.findProductInCategory( "Wood", "Natural Resources" ) );
             var product = this.findProductInCategory( productName, categoryName ) 
+            // console.log( product );
             if ( product !== undefined ) {
                 return { 
-                    'result': product,
-                    'category': categoryName
+                    'Result': product,
+                    'Category': categoryName
                 };
             };
         };
@@ -62,7 +68,7 @@ export default function Stuff ( info ) {
     // NATURAL RESOURCES
     this.findResource = function( resourceName ) { 
         return this.resourceList
-            .find( resource => resource.info['name'] === resourceName
+            .find( resource => resource.info['Name'] === resourceName
     )};
 
     this.initializeResource = function ( resourceInfo ) {
@@ -91,7 +97,7 @@ export default function Stuff ( info ) {
     //TOOLS
     this.findTool = function( toolName ) { 
         return this.toolList
-            .find( tool => tool.info['name'] === toolName
+            .find( tool => tool.info['Name'] === toolName
     )};
 
     this.initializeTool = function ( toolInfo ) {
@@ -120,7 +126,9 @@ export default function Stuff ( info ) {
     // Checks
     this.checkProductAvailability = function ( productName, amount ) {
         var checkingProduct = this.findProduct( productName );
-        return checkingProduct.info['available'] >= amount ;
+        if ( checkingProduct !== undefined) {
+            return checkingProduct['Result'].info['Available'] >= amount ;
+        };
     };
 
     this.checkResourceAvailability = function ( resourceName, amount ) {
@@ -152,18 +160,7 @@ export default function Stuff ( info ) {
     };
 
     this.checkManyProductsAvailability = function ( productInputObject ) {
-        // productInputJson = {
-        //     'Product Category1':
-        //     {
-        //         'product': amount (float)
-        //     },
-        //     'Product Category2':
-        //     {
-        //         'product': amount (float)
-        //     }
-        // };
-
-        for ( let productName of Object.keys( productInputObject ) ) {
+        for ( var productName of Object.keys( productInputObject ) ) {
             if ( !this.checkProductAvailability
                 ( productName, productInputObject[ productName ] ) ) {
                     return false;
@@ -174,27 +171,41 @@ export default function Stuff ( info ) {
 
 
     // CONSUME AND PRODUCE PRODUCTS
+    // this.consumeInputProducts = function ( productInputJson ) {
+    //     for ( let productCategoryName of Object.keys( productInputJson ) ) {
+    //         for ( let productName of Object.keys( productInputJson[ productCategoryName ])) {
+    //             let product = this.findProduct( productName );
+    //             product.subtract( productInputJson[ productCategoryName ][ productName ]);
+    //         };
+    //     };
+    // };
+
     this.consumeInputProducts = function ( productInputJson ) {
-        for ( let productCategoryName of Object.keys( productInputJson ) ) {
-            for ( let productName of Object.keys( productInputJson[ productCategoryName ])) {
-                console.log( productName );
-                let product = this.findProduct( productName );
-                product.subtract( productInputJson[ productCategoryName ][ productName ]);
-            };
+        for ( let productName of Object.keys( productInputJson ) ) {
+            let product = this.findProduct( productName );
+            product['Result'].subtract( productInputJson[ productName ]);
         };
+        
         // OR CONSUME CATEGORY ONE BY ONE (ALLOWS FOR DIFFERENTIATED EFFECTS ON DIFFERENT CATEGORIES)
     };
 
-    this.produceOutputProducts = function ( productOutputObject ) {
-        for ( let productCategoryName of Object.keys( productInputJson ) ) {
-            for ( let productName of Object.keys( productInputJson[ productCategoryName ])) {
-                console.log( productName );
-                let product = this.findProduct( productName );
-                product.add( productInputJson[ productCategoryName ][ productName ]);
-            };
+    // this.produceOutputProducts = function ( productOutputObject ) {
+    //     for ( let productCategoryName of Object.keys( productInputJson ) ) {
+    //         for ( let productName of Object.keys( productInputJson[ productCategoryName ])) {
+    //             console.log( productName );
+    //             let product = this.findProduct( productName );
+    //             product.add( productInputJson[ productCategoryName ][ productName ]);
+    //         };
+    //     };
+    // };
+
+    this.produceOutputProducts = function ( productOutputJson ) {
+        for ( let productName of Object.keys( productOutputJson )) {
+            // console.log( productName );
+            let product = this.findProduct( productName );
+            product['Result'].add( productOutputJson[ productName ]);
         };
     };
-
 
 
     this.consumeInputResources = function ( resourceInputJson ) {
@@ -254,6 +265,20 @@ export default function Stuff ( info ) {
     this.produceOutputBuildings = function (  ) {
         // same as consumeInputResources
     };
+
+    this.separateProductJsonIntoCategories = function ( productJson ) {
+        var ret = this.productCategories();
+        for ( var productName of Object.keys( productJson ) ) {
+            var productInfo = this.findProduct( productName );
+            ret[productInfo['Category']][productName] 
+            = productJson[productName];
+        };
+        return ret;
+    };
+
+    this.unseparateProductCategories = function () {
+
+    }
 
     this.initializeResourceJson( resourcesJson );
     this.initializeToolJson( toolsJson );

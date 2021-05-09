@@ -2,67 +2,67 @@
     "resources": [
         { 
             "id": "wood1",
-            "name": "Wood",
-            "available": 100,
-            "capacity": 200,
-            "resourceCategory": "construction",
-            "requirements": "none"
+            "Name": "Wood",
+            "Available": 100,
+            "Capacity": 200,
+            "Resource Category": "construction",
+            "Requirements": "none"
         },
         { 
             "id": "fruit1",
-            "name": "Fruit",
-            "available": 100,
-            "capacity": 200,
-            "resourceCategory": "Consumable",
-            "requirements": "none"
+            "Name": "Fruit",
+            "Available": 100,
+            "Capacity": 200,
+            "Resource Category": "Food",
+            "Requirements": "none"
         },
         { 
             "id": "vegetables1",
-            "name": "Vegetables",
-            "available": 100,
-            "capacity": 200,
-            "resourceCategory": "Consumable",
+            "Name": "Vegetables",
+            "Available": 100,
+            "Capacity": 200,
+            "Resource Category": "Food",
             "requirements": "none"
         },
         { 
             "id": "seeds1",
-            "name": "Seeds",
-            "available": 100,
-            "capacity": 200,
-            "resourceCategory": "Consumable",
-            "requirements": "none"
+            "Name": "Seeds",
+            "Available": 100,
+            "Capacity": 200,
+            "Resource Category": "Food",
+            "Requirements": "none"
         },
         { 
             "id": "meat1",
-            "name": "Meat",
-            "available": 100,
-            "capacity": 200,
-            "resourceCategory": "Consumable",
-            "requirements": "none"
+            "Name": "Meat",
+            "Available": 100,
+            "Capacity": 200,
+            "Resource Category": "Food",
+            "Rrequirements": "none"
         },
         { 
             "id": "cereal1",
-            "name": "Cereal",
-            "available": 100,
-            "capacity": 200,
-            "resourceCategory": "Consumable",
-            "requirements": "none"
+            "Name": "Cereal",
+            "Available": 100,
+            "Capacity": 200,
+            "Resource Category": "Food",
+            "Requirements": "none"
         },
         { 
             "id": "root1",
-            "name": "Root",
-            "available": 100,
-            "capacity": 200,
-            "resourceCategory": "Consumable",
-            "requirements": "none"
+            "Name": "Root",
+            "Available": 100,
+            "Capacity": 200,
+            "Resource Category": "Food",
+            "Requirements": "none"
         },
         { 
             "id": "bone1",
-            "name": "Bone",
-            "available": 100,
-            "capacity": 200,
-            "resourceCategory": "Construction",
-            "requirements": "none"
+            "Name": "Bone",
+            "Available": 100,
+            "Capacity": 200,
+            "Resource Category": "Construction",
+            "Requirements": "none"
         }
 
 

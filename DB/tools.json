@@ -1,17 +1,35 @@
 {
     "tools": [
         {
-            "name": "Spear",
-            "model": {
+            "Name": "No Tool",
+            "Models": {
+            },
+            "Base Upgrade": {
+                "Input": 0,
+                "Output": 0,
+                "Cost": 0,
+                "Durability": 0
+            },
+            "Base Cost": {
+            },
+            "Base Effect": {
+                "Input": 1,
+                "Output": 1
+            },
+            "Tool Points": 0
+        },
+        {
+            "Name": "Spear",
+            "Models": {
                 "Bone": {
-                    "extra cost": {
-                        "resources": {
+                    "Extra Cost": {
+                        "Natural Resources": {
                             "Bone": 3.1
                         }
                     },
-                    "quantity": 0,
-                    "durability": 10,
-                    "extra effect": 0.02
+                    "Quantity": 0,
+                    "Durability": 10,
+                    "Extra Effect": 0.02
                 },
                 "Wood": {
                     "extra cost": {
@@ -54,21 +72,21 @@
                     "extra effect": 0.02
                 }
             },
-            "base upgrade": {
-                "input": 0,
-                "output": 0,
-                "cost": 0,
-                "durability": 0
+            "Base Upgrade": {
+                "Input": 0,
+                "Output": 0,
+                "Cost": 0,
+                "Durability": 0
             },
-            "base cost": {
+            "Base Cost": {
                 "Wood": 2.4,
-                "material": 3.1
+                "Material": 3.1
             },
-            "base effect": {
-                "input": 0.95,
-                "output": 1.05
+            "Base Effect": {
+                "Input": 0.95,
+                "Output": 1.05
             },
-            "tool points": 0
+            "Tool Points": 0
         }
     ]
 }

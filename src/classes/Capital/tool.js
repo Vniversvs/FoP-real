@@ -23,4 +23,17 @@ export default function Tool ( info ) {
         this.info['cost'] = newCostObject['base']
     };
 
+    this.treatInfoForLabor = function () {
+        return {
+            'Labor Name': `Make ${this.info['Name']}`,
+            'Product Input': [],
+            'Product Output': [],
+            'Tools': []
+        }
+    };
+
+    this.initializeToolMakingLabor = function () {
+        this.player.society.work.initializeLabor( this.info )
+    };
+
 };

@@ -1,12 +1,5 @@
 export default function Component ( info ) {
-    //   var info = [
-    //     name,
-    //     model,
-    //     availability, 
-    //     capacity, 
-    //     componentCategory, 
-    //     requirements, etc...   
-    //   ]
+    //   info = name, availability, capacity, componentcategory, requirements
     
         this.info = info;
     
