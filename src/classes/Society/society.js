@@ -7,4 +7,11 @@ export default function Society ( population, work ) {
 
     this.addPlayer = ( player ) => this.player = player;
 
+    this.makeSocietyJson = function () {
+        return {
+            'Population': this.population.makePopulationJson(),
+            'Work':this.work.makeWorkJson()
+        }
+    };
+
 };

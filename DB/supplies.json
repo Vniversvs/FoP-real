@@ -1,8 +1,8 @@
 {
     "supplies": [
         {
-            "name": "Pottery",
-            "input": [
+            "Name": "Pottery",
+            "Input": [
                 {
                     "Clay": 1.1 
                 }, 
@@ -10,8 +10,8 @@
                     "Porcelain": 0.7
                 }
             ],
-            "category": "construction",
-            "available": 0             
+            "Category": "construction",
+            "Available": 0             
         }
     ]
 }

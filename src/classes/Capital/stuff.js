@@ -165,7 +165,7 @@ export default function Stuff ( info ) {
     };
 
     this.initializeResourceJson( resourcesJson );
-    this.initializeToolJson( toolsJson );
+    // this.initializeToolJson( toolsJson );
 
 };
 

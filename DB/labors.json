@@ -9,7 +9,8 @@
             },
             "Output": {
                 "Meat": 2.4,
-                "Bone": 0.9
+                "Bone": 0.9,
+                "Pelt": 0.2
             },
             "Tools": {}
         }, 
@@ -41,6 +42,17 @@
             },
             "Output": {
                 "Wood": 1.1
+            },
+            "Tools": {}
+        },
+        {
+            "id": "gatherfruit1",
+            "Name": "Plant Vegetables",
+            "Input": {
+                "Vegetables": 0.5
+            },
+            "Output": {
+                "Vegetables": 0.65
             },
             "Tools": {}
         }

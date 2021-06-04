@@ -3,6 +3,11 @@ import Tool from './tool.js'
 import Supply from './supply.js'
 import Component from './component.js'
 import fs from 'fs';
+import Auxiliary from '../auxiliary.js'
+
+const aux = new Auxiliary();
+
+
 const resourcesJson = JSON.parse( 
     fs.readFileSync( './DB/resources.json' 
     ));
@@ -16,7 +21,6 @@ const supplyJson = JSON.parse(
     fs.readFileSync( './DB/supplies.json' 
     ));
 
-// export default function Stuff ( resourceList, toolList ) {
 export default function Production ( info ) {    
     this.info = info;
 
@@ -37,11 +41,7 @@ export default function Production ( info ) {
 
     this.findProduct = function ( productName ) {
         for ( let categoryName of Object.keys( this.info ) ) {
-            // console.log(categoryName);
-            // console.log( productName );
-            // console.log( this.findProductInCategory( "Wood", "Natural Resources" ) );
             var product = this.findProductInCategory( productName, categoryName ) 
-            // console.log( product );
             if ( product !== undefined ) {
                 return { 
                     'Result': product,
@@ -50,6 +50,7 @@ export default function Production ( info ) {
             };
         };
     };
+
 
     // this.initializeProductInCategory = function ( productInfo, categoryName ) {
     //     this.info[categoryName].push( new Resource ( productInfo ) );
@@ -95,17 +96,18 @@ export default function Production ( info ) {
 
 
     //TOOLS
-    this.findTool = function( toolName ) { 
-        return this.toolList
-            .find( tool => tool.info['Name'] === toolName
-    )};
+    this.findTool = ( toolName ) => this.info['Tools'].find( tool => tool.info['Name'] === toolName );
+
+    this.findToolModel = function( toolName, modelName ) {
+        return this.findTool( toolName ).getModel( modelName );
+    };
 
     this.initializeTool = function ( toolInfo ) {
         this.info['Tools'].push( new Tool ( toolInfo ))
     };
 
     this.initializeToolJson = function ( toolsJson ) {
-        for ( let toolInfo of toolsJson['tools'] ) {
+        for ( let toolInfo of toolsJson['Tools'] ) {
             this.initializeTool( toolInfo )
         };
     };
@@ -117,8 +119,8 @@ export default function Production ( info ) {
     };
 
     this.initializeComponentJson = function ( componentJson ) {
-        for ( let componentInfo of componentJson['components'] ) {
-            this.initializeTool( componentInfo )
+        for ( let componentInfo of componentJson['Components'] ) {
+            this.initializeComponent( componentInfo )
         };
     };
 
@@ -134,17 +136,17 @@ export default function Production ( info ) {
     this.checkResourceAvailability = function ( resourceName, amount ) {
         // check if one resource is available in the quantity "amount".
         var checkingResource = this.findResource( resourceName );
-        return checkingResource.info['available'] >= amount ;
+        return checkingResource.info['Available'] >= amount ;
     };
 
     this.checkSupplyAvailability = function ( supplyName, amount ) {
         var checkingSupply = this.findResource( supplyName );
-        return checkingSupply.info['available'] >= amount ;
+        return checkingSupply.info['Available'] >= amount ;
     };
 
     this.checkComponentAvailability = function ( componentName, amount ) {
         var checkingComponent = this.findResource( componentName );
-        return checkingComponent.info['available'] >= amount ;
+        return checkingComponent.info['Available'] >= amount ;
     };
 
 
@@ -183,7 +185,9 @@ export default function Production ( info ) {
     this.consumeInputProducts = function ( productInputJson ) {
         for ( let productName of Object.keys( productInputJson ) ) {
             let product = this.findProduct( productName );
+            // console.log( productName + ' : ' + product['Result'].info['Available'] );
             product['Result'].subtract( productInputJson[ productName ]);
+            // console.log( productName + ' : ' + product['Result'].info['Available'] );
         };
         
         // OR CONSUME CATEGORY ONE BY ONE (ALLOWS FOR DIFFERENTIATED EFFECTS ON DIFFERENT CATEGORIES)
@@ -201,16 +205,29 @@ export default function Production ( info ) {
 
     this.produceOutputProducts = function ( productOutputJson ) {
         for ( let productName of Object.keys( productOutputJson )) {
-            // console.log( productName );
+        if( productName === "Tools" ) {
+            this.produceOutputTools( productOutputJson[productName] );
+            // for( let toolName of Object.keys( productOutputJson.Tools ) ) {
+            //     for ( let modelName of Object.keys( productOutputJson.Tools[toolName] ) ) {
+            //         console.log(modelName);
+
+            //     };        
+            // };
+        } else {
             let product = this.findProduct( productName );
             product['Result'].add( productOutputJson[ productName ]);
+        };
+             // console.log( productName + ' : ' + product['Result'].info['Available'] );
+
+            // console.log( productName + ' : ' + product['Result'].info['Available'] );
+            // console.log('apple');
         };
     };
 
 
     this.consumeInputResources = function ( resourceInputJson ) {
         for ( let resourceName of Object.keys( resourceInputJson ) ) {
-            console.log(resourceName);
+            // console.log(resourceName);
             let resource = this.findResource( resourceName );
             resource.subtract( resourceInputJson[resourceName]);
         };
@@ -258,8 +275,13 @@ export default function Production ( info ) {
         };
     };
 
-    this.produceOutputTools = function (  ) {
-        // same as consumeInputResources
+    this.produceOutputTools = function ( toolJson ) {
+        for( let toolName of Object.keys( toolJson ) ) {
+            for ( let modelName of Object.keys( toolJson[toolName] ) ) {
+                // console.log(modelName);
+                this.findProductInCategory( toolName, 'Tools' ).addQuantityToModel( modelName, toolJson[toolName][modelName] );                
+            };        
+        };
     };
 
     this.produceOutputBuildings = function (  ) {
@@ -280,10 +302,137 @@ export default function Production ( info ) {
 
     }
 
+    this.simplifiedCategoryJson = function ( categoryName ) {
+        let simplifiedJson = {};
+        for ( let product of this.info[categoryName] ) {
+            simplifiedJson[product.info['Name']] = product.getStorage() ;
+        }        
+        return simplifiedJson;
+    };
+
+    this.printCategory = function ( categoryName ) {
+        console.log( this.simplifiedCategoryJson( categoryName ) );
+    };
+
+    this.printProduction = function () {
+        for ( let categoryName of Object.keys( this.info ) ) {
+            this.printCategory(categoryName);
+        };
+    };
+
+    this.getToolModelfromJson = function ( toolModelJson ) {
+        let toolName = Object.keys( toolModelJson )[0];
+        console.log(toolName); 
+        // return this.findProduct( toolName )['Result'].info['Models'][ toolModelJson[toolName] ];
+        return this.findToolModel( toolName, toolModelJson[toolName] )
+    };
+
+    this.getToolModelsfromJson = function ( toolModelsJson ) {
+
+    };
+
+    this.sumProductJsons = function ( productJson1, productJson2 ) {
+        if (productJson1 && productJson2) {
+            let ret = aux.copyObject( productJson1 );
+            for ( let productName of Object.keys( productJson2 ) ) {
+                ret[productName] = (productJson1[productName] || 0 ) + productJson2[productName];            
+            };
+            return ret;
+        } else {
+            return "To sum 2 Jsons, I need 2 objects"
+        };
+    };
+
+        // for ( let productName of Object.keys( productJson2 ) ) {
+        //     if ( Object.keys( productJson1 ).includes( productName ) ) {
+        //         ret[productName] = (productJson1[productName] || 0 ) + (productJson2[productName] || 0 );
+        //     } else {
+        //         ret[productName] = (productJson1[productName] || 0 ) + (productJson2[productName] || 0 );
+        //     };
+        // };
+
+
+    this.getTotalModelInfo = function ( toolName, modelName ) {
+        let tool = this.findTool( toolName );
+        let modelInfo = tool.getModel( modelName );
+        let baseInfo = tool.getBaseInfo();
+        // let ret = [];
+        // ret['Total Cost'] = this.sumProductJsons( baseInfo['Base Cost'], modelInfo['Extra Cost'] );
+        // ret['Total Effect'] = this.sumProductJsons( baseInfo['Base Effect'], modelInfo['Extra Effect'] ); 
+        // ret['Durability'] = modelInfo['Durability'];
+        // ret['Base Upgrade'] = modelInfo['Base Upgrade'];
+        // ret['Model Upgrade'] = modelInfo['Upgrade'];
+        return {
+            'Total Cost': this.sumProductJsons( baseInfo['Base Cost'], modelInfo['Extra Cost'] ), 
+            'Total Effect': this.sumProductJsons( baseInfo['Base Effect'], modelInfo['Extra Effect'] ),
+            'Durability': modelInfo['Durability'],
+            'Base Upgrade': baseInfo['Base Upgrade'],
+            'Model Upgrade': modelInfo['Upgrade']
+        };
+        return ret;
+    };
+
+    this.calculateToolModelInputEffect = function ( toolModelJson ) {
+        let toolNameArray = Object.keys( toolModelJson );
+        let tmie = 1;
+        for ( let toolName of toolNameArray ) {
+            tmie += this.getTotalModelInfo( toolName, toolModelJson[toolName] )['Total Effect']['Input']
+        };
+        return tmie;
+    };
+
+    this.calculateToolModelOutputEffect = function ( toolModelJson ) {
+        let toolNameArray = Object.keys( toolModelJson );
+        let tmoe = 1;
+        for ( let toolName of toolNameArray ) {
+            tmoe += this.getTotalModelInfo( toolName, toolModelJson[toolName] )['Total Effect']['Output']
+        };
+        return tmoe;
+    };
+
+    this.makeCategoryJson = function ( categoryName ) {
+        let categoryJson = {};
+        for ( let product of  this.info[categoryName] ) {
+            categoryJson[product.info['Name']] = product.getAvailable(); 
+            // console.log(product.info['Name']);
+            if( product.info['Name'] === 'Wood' ) {
+                console.log('banana');
+                console.log(product.getAvailable());
+            }
+        };
+        return categoryJson;
+    };
+
+    this.makeProductionJson = function () {
+        let productionJson = {};
+        for ( let categoryName of Object.keys( this.info ) ) {
+            productionJson[ categoryName ] = this.makeCategoryJson( categoryName );
+        };
+        return productionJson;
+    };
+
+    this.makeResourcesJson = function () {
+        let finalJson = {};
+        for (let naturalResource of this.info['Natural Resources']) {
+            finalJson[ naturalResource.info['Name'] ] = naturalResource.getAvailable();
+        };
+        return finalJson;
+    };
+
+    this.getCategoryProductNames = function ( categoryName ) {
+        return this.info[categoryName].map( (product) => product.info.Name );
+    };
+
+    this.getToolModelNames = function ( toolName ) {
+        // return this.findTool( toolName ).info.Models.map( (toolModel) => { toolModel.Name });
+        return Object.keys(this.findTool( toolName ).info['Models']);
+    };
+
     this.initializeResourceJson( resourcesJson );
     this.initializeToolJson( toolsJson );
     this.initializeComponentJson( componentJson );
     this.initializeSupplyJson( supplyJson );
+
 };
 
 

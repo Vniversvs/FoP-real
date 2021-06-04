@@ -1,6 +1,8 @@
 {
     "Production": {
-        "Natural Resources": {},
+        "Natural Resources": {
+            "Wood": [100, 200]
+        },
         "Supplies": {},
         "Components": {},
         "Tools": {},

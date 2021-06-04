@@ -1,0 +1,35 @@
+#header{
+    position: absolute;
+    width: 100%;
+    height: 80px
+}
+
+#society{
+    position: absolute;
+    top: 80px;
+    width: 20%;
+    height: 40%
+}
+
+#main-screen{
+    position: absolute;
+    top: 80px;
+    left: 20%;
+    width: 60%;
+    height: 70%
+}
+
+#capital{
+    position: absolute;
+    top: 80px;
+    right: 0px;
+    width: 20%;
+    height: 40%
+}
+
+#footer{
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    height: 80px
+}
