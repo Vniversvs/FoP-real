@@ -6,6 +6,13 @@
 
 //////////////////// >>>>>requests<<<<<
 // fix product vector sum
+// ADD MANY LABOR ORDERS FROM ARRAY
+
+
+
+//////////////////// >>>>>BUGS<<<<<
+//// 1) LaborOrder.calculateOutputJson
+
 
 
 //////////////////// >>>>>TO DO<<<<<
@@ -14,13 +21,21 @@
 ////// a)      ( )  layout
 ////// b)      ( )  buttons
 
-//// 5)        ( )  PASS TURN 
-////// a)      ( )  PLAYER JSON
+//// 4)        ( )  AddLaborOrder
+////// a)      ( )  Checks
+///////////    ( )  products
+///////////    ( )  laborers
+///////////    ( )  toolModels
+///////////    ( )  
+////// b)      ( )  buttons
+
+//// 5)        (X)  PASS TURN 
+////// a)      (X)  PLAYER JSON
 ///////////    (X)  pop json
-///////////    ( )  labor json
-///////////    ( )  work json
+///////////    (X)  labor json
+///////////    (X)  work json
 ///////////    (X)  prod json
-///////////    ( )  tools json
+///////////    (X)  tools json
 ////// b)      (X)  Perform Labor Orders
 ///////////    (X)  check for free laborers
 
@@ -30,14 +45,17 @@
 ////// c)      (X)  upgrade effects
 ////// d)      ( )  toolModel object 
 ////// e)      (X)  tool and toolModel handling (sums, finds, etc...)
-////// f)      ( )  tool model making labors
+////// f)      (X)  tool model making labors
 ////// g)      (X)  add model mechanics to labor order
-////// h)      ( )  check for toolModel availability
+////// h)      ( )  check for toolModel availability in 
+////// i)      ( )  Wear down ToolModels    
+
+//////////////////////// TEST AND API PHASE
 
 //// 7)        ( )  Fill content
 ////// a)      (X)  Resources
-////// a)      ( )  Supplies
-////// b)      ( )  Tools
+////// b)      ( )  Supplies
+////// c)      ( )  Tools
 
 //// 8)        ( )  Documentation
 ////// a)      ( )  PLAYER
@@ -47,7 +65,6 @@
 ////// c)      ( )  Capital
 ///////////    ( )  Production
 ///////////    ( )  Tools
-
 
 //// ?) ( ) Polish MVP
 ////// a) ( ) figure out initial things
@@ -82,9 +99,6 @@
 
 
 
-//// 1)        ( )  
-////// a)      ( )  
-///////////    ( )  
 
 
 /////////////////////////////////////////// MARKETING AND DATA SCIENCE PROJECT
@@ -92,11 +106,24 @@
 //// 1)        ( )  How to market a Game?
 ////// a)      ( )  
 ///////////    ( )  
-//// 1)        ( )  How to use Data science to increase game marketintg capacity?
+//// 2)        ( )  How to make interesting and engaging posts for each community, going around anti-promotion rules? 
 ////// a)      ( )  
 ///////////    ( )  
+//// 3)        ( )  Automate social network navigation
+////// a)      ( )  
+///////////    ( )  
+//// 4)        ( )  How to use Data science to increase game marketintg capacity?
+////// a)      ( )  
+///////////    ( )  
+//// 5)        ( )  Find communities and organize them in a DB
+////// a)      ( )  
+///////////    ( )  
+
+
+
+
+
+
 //// 1)        ( )  
 ////// a)      ( )  
 ///////////    ( )  
-
-

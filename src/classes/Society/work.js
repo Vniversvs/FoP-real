@@ -170,26 +170,14 @@ export default function Work ( info ) {
         let production = this.player.capital.production; 
         let population = this.player.society.population;
         let inputJson = this.calculateInputJson( laborOrderInfo );
-        console.log(inputJson);
         if ( production.checkManyProductsAvailability( inputJson ) ) {
             if ( population.checkFreeLaborers( laborOrderInfo['Laborers'] ) ) {
-                if ( production.checkAvailableToolModels( laborOrderInfo['Tools'] ) ) {
-
-                } else {
-                    'Not enough tool models!'
-                }
-            } else {
-                return 'Not enough laborers!'
-            }         
-        } else {
-            return 'Not enough products!'
-        };
-
-        // if ( production.checkManyProductsAvailability( inputJson ) && 
-        // population.checkFreeLaborers( laborOrderInfo['Laborers'] )){
-        //     this.info['Labor Orders'].push( new LaborOrder( laborOrderInfo ) );
-        //     this.getLaborOrder( laborOrderInfo['Id'] ).addPlayer( player );
-        // } else {console.log( 'not enough input or laborers' );};
+                if ( production.checkToolJsonAvailability( laborOrderInfo ) ) {
+                    this.info['Labor Orders'].push( new LaborOrder( laborOrderInfo ) );
+                    this.getLaborOrder( laborOrderInfo['Id'] ).addPlayer( this.player );
+                } else {return 'Not enough tool models!';}
+            } else {return 'Not enough laborers!';}         
+        } else {return 'Not enough products!';};
     };
 
     this.addPlayer = ( player ) => this.player = player;

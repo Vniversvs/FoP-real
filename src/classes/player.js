@@ -10,7 +10,9 @@ export default function Player ( society, capital, knowledge, nature) {
             this.society.work.performLaborOrder( laborOrder );
             this.society.work.removeLaborOrder( laborOrder.info['Id'] );
             this.capital.addToolProductionPoints( laborOrder );
+            
         };
+        this.bigJson = this.makeBigJson();
     };
 
     this.getTurnInfo = function () {

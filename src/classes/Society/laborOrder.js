@@ -22,11 +22,11 @@ export default function LaborOrder ( info ) {
     this.calculateInputJson = function () {
         let treatedInputJson = {};
         let production = this.player.capital.production
-        let tmie = production.calculateToolModelInputEffect( this.info['Tools'] );
-        var untreatedInput = this.currentInfo['Labor'].info['Input'];
+        let tmie = production.calculateToolModelInputEffect( this.info['Tools'] ); // toolModelInputEffect
+        var untreatedInput = this.currentInfo['Labor'].info['Input']; 
         for ( var inputName of Object.keys( untreatedInput ) ) {
-            var nil = this.info['Laborers'] // nl = Number of Laborers
-            let bli = untreatedInput[ inputName ]; 
+            var nil = this.info['Laborers'] // nil = Number of Laborers
+            let bli = untreatedInput[ inputName ]; // base labor input
             treatedInputJson[inputName] = bli * tmie * nil;
         };
         return treatedInputJson;
@@ -34,12 +34,13 @@ export default function LaborOrder ( info ) {
 
     this.calculateOutputJson = function () {
         let treatedOutputJson = {};
+        let production = this.player.capital.production;
         var untreatedOutput = this.currentInfo['Labor'].info['Output'];
+        let tmoe = production.calculateToolModelOutputEffect( this.info['Tools'] );
+        var nol = this.info['Laborers'];
         for ( var outputName of Object.keys( untreatedOutput ) ) {
-            var toe = 1 + this.currentInfo["Tools"][0].info['Base Effect']['Output'];
-            var nol = this.info['Laborers'];
             let blo = untreatedOutput[ outputName ];
-            treatedOutputJson[outputName] = blo * toe * nol;
+            treatedOutputJson[outputName] = blo * tmoe * nol;
         };
         return treatedOutputJson;
     };

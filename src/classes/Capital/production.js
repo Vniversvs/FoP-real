@@ -355,6 +355,7 @@ export default function Production ( info ) {
     this.getTotalModelInfo = function ( toolName, modelName ) {
         let tool = this.findTool( toolName );
         let modelInfo = tool.getModel( modelName );
+        console.log(modelInfo);
         let baseInfo = tool.getBaseInfo();
         // let ret = [];
         // ret['Total Cost'] = this.sumProductJsons( baseInfo['Base Cost'], modelInfo['Extra Cost'] );
@@ -367,7 +368,8 @@ export default function Production ( info ) {
             'Total Effect': this.sumProductJsons( baseInfo['Base Effect'], modelInfo['Extra Effect'] ),
             'Durability': modelInfo['Durability'],
             'Base Upgrade': baseInfo['Base Upgrade'],
-            'Model Upgrade': modelInfo['Upgrade']
+            'Model Upgrade': modelInfo['Upgrade'],
+            'Quantity': modelInfo['Quantity']
         };
         return ret;
     };
@@ -427,6 +429,22 @@ export default function Production ( info ) {
         // return this.findTool( toolName ).info.Models.map( (toolModel) => { toolModel.Name });
         return Object.keys(this.findTool( toolName ).info['Models']);
     };
+
+    this.checkToolModelAvailability = function ( toolName, modelName, quantity ) {
+        let modelQuantity = this.getTotalModelInfo( toolName, modelName )['Quantity'];
+        return modelQuantity > quantity;
+    };
+
+    this.checkToolJsonAvailability = function ( laborOrderInfo ) {
+        let toolInfo = laborOrderInfo['Tools']; 
+        for ( let toolName of Object.keys(toolInfo) ) {
+            if ( !this.checkToolModelAvailability( toolName, toolInfo[toolName], laborOrderInfo['Laborers'] ) ) {
+                return false;
+            };
+        };    
+        return true;
+    };
+
 
     this.initializeResourceJson( resourcesJson );
     this.initializeToolJson( toolsJson );
